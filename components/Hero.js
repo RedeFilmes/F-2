@@ -1,23 +1,52 @@
-function Hero({ movies, onPlay }) {
+function Hero({ movies = [], onPlay }) {
     const [currentIndex, setCurrentIndex] = React.useState(0);
+    const [imageError, setImageError] = React.useState(false);
 
     React.useEffect(() => {
+        if (!movies || !Array.isArray(movies) || movies.length === 0) {
+            return;
+        }
+
         const timer = setInterval(() => {
             setCurrentIndex((prevIndex) => 
-                prevIndex === movies.length - 1 ? 0 : prevIndex + 1
+                prevIndex === (movies.length - 1) ? 0 : prevIndex + 1
             );
-        }, 5000); // Change banner every 5 seconds
+        }, 5000);
 
         return () => clearInterval(timer);
-    }, [movies.length]);
+    }, [movies]);
+
+    if (!movies || !Array.isArray(movies) || movies.length === 0) {
+        return null;
+    }
 
     const currentMovie = movies[currentIndex];
+    if (!currentMovie) {
+        return null;
+    }
+
+    const handleImageError = () => {
+        try {
+            setImageError(true);
+        } catch (error) {
+            reportError(error);
+        }
+    };
+
+    const backgroundStyle = {
+        backgroundImage: imageError 
+            ? 'linear-gradient(to bottom, #141414, #000000)'
+            : `url(${currentMovie.backdrop})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+    };
 
     return (
         <div 
             data-name="hero"
             className="hero" 
-            style={{ backgroundImage: `url(${currentMovie.backdrop})` }}
+            style={backgroundStyle}
+            onError={handleImageError}
         >
             <div className="hero-content">
                 <div className="container">

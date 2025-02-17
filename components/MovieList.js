@@ -1,10 +1,10 @@
-function MovieList({ title, movies, onMovieClick }) {
+function MovieList({ title, movies = [], onMovieClick }) {
     const listRef = React.useRef(null);
 
     const scroll = (direction) => {
         try {
             const container = listRef.current;
-            const scrollAmount = 240 * 4; // Scroll 4 items at once
+            const scrollAmount = 200 * 4;
             if (container) {
                 if (direction === 'left') {
                     container.scrollLeft -= scrollAmount;
@@ -17,20 +17,24 @@ function MovieList({ title, movies, onMovieClick }) {
         }
     };
 
+    if (!movies || !Array.isArray(movies) || movies.length === 0) {
+        return null;
+    }
+
     return (
         <div data-name="movie-row" className="movie-row">
-            <div className="container relative">
-                <h2 data-name="row-title" className="text-xl font-bold mb-4">{title}</h2>
+            <h2 className="text-xl font-bold mb-4 px-4">{title}</h2>
+            <div className="relative group">
                 <button 
                     data-name="prev-button"
-                    className="carousel-button prev" 
+                    className="carousel-button prev opacity-0 group-hover:opacity-100" 
                     onClick={() => scroll('left')}
                 >
                     <i className="fas fa-chevron-left"></i>
                 </button>
                 <div data-name="movie-list" className="movie-list" ref={listRef}>
-                    {movies.map(movie => (
-                        <div key={movie.id} className="movie-card-container">
+                    {movies.map((movie, index) => (
+                        <div key={`${movie.id}-${index}`} className="movie-card-container">
                             <MovieCard 
                                 movie={movie} 
                                 onClick={() => onMovieClick(movie)} 
@@ -40,7 +44,7 @@ function MovieList({ title, movies, onMovieClick }) {
                 </div>
                 <button 
                     data-name="next-button"
-                    className="carousel-button next" 
+                    className="carousel-button next opacity-0 group-hover:opacity-100" 
                     onClick={() => scroll('right')}
                 >
                     <i className="fas fa-chevron-right"></i>

@@ -23,7 +23,7 @@ function AddToListButton({ item }) {
         <button
             data-name="add-to-list-button"
             onClick={handleToggleList}
-            className="bg-zinc-800 hover:bg-zinc-700 text-white p-2 rounded-full"
+            className="bg-zinc-800 hover:bg-zinc-700 text-white p-2 rounded-full relative z-30"
             title={isInList ? "Remover da Minha Lista" : "Adicionar à Minha Lista"}
         >
             <i className={`fas ${isInList ? 'fa-check' : 'fa-plus'}`}></i>

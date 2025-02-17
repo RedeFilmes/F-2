@@ -18,6 +18,11 @@ function SeriesSeasons({ series }) {
         }
     };
 
+    // Return null if no series data or no seasons
+    if (!series || !series.seasons || !Array.isArray(series.seasons)) {
+        return null;
+    }
+
     return (
         <div data-name="series-seasons" className="mt-8">
             <div className="container">
@@ -40,7 +45,7 @@ function SeriesSeasons({ series }) {
                 <div className="grid gap-4">
                     {series.seasons
                         .find(s => s.number === selectedSeason)
-                        ?.episodes.map(episode => (
+                        ?.episodes?.map(episode => (
                             <div 
                                 key={episode.number}
                                 className="bg-zinc-800 p-4 rounded-lg flex gap-4"
@@ -83,6 +88,9 @@ function SeriesSeasons({ series }) {
                                 width="100%"
                                 height="100%"
                                 title={selectedEpisode.title}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
                             ></iframe>
                         </div>
                     </div>

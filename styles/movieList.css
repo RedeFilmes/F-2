@@ -1,6 +1,5 @@
 .movie-row {
-    margin: 20px 0;
-    padding: 20px 0;
+    margin: 3vw 0;
     position: relative;
 }
 
@@ -10,6 +9,9 @@
     padding: 20px 0;
     gap: 15px;
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    z-index: 1;
 }
 
 .movie-list::-webkit-scrollbar {
@@ -17,13 +19,18 @@
 }
 
 .movie-card-container {
-    flex: 0 0 240px;
+    flex: 0 0 200px;
     transition: transform 0.3s;
 }
 
 .movie-card-container:hover {
     transform: scale(1.1);
     z-index: 2;
+}
+
+.movie-buttons {
+    position: relative;
+    z-index: 30;
 }
 
 .carousel-button {
@@ -36,8 +43,11 @@
     width: 40px;
     height: 100px;
     cursor: pointer;
-    z-index: 10;
+    z-index: 20;
     transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .carousel-button:hover {
@@ -54,4 +64,19 @@
     right: 0;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .movie-card-container {
+        flex: 0 0 140px;
+    }
+
+    .carousel-button {
+        display: none;
+    }
+
+    .movie-list {
+        padding: 10px 0;
+        gap: 10px;
+    }
 }
