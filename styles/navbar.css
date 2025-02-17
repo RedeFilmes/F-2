@@ -1,0 +1,16 @@
+.navbar {
+    background: linear-gradient(180deg, rgba(0,0,0,0.7) 10%, transparent);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar-scrolled {
+    background: #141414;
+}
+
+.nav-logo {
+    width: 100px;
+    height: auto;
+}
